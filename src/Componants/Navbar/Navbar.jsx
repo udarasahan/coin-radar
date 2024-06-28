@@ -2,6 +2,7 @@ import './Navbar.css';
 import { assets } from '../../assets/assets';
 import { useContext } from 'react';
 import { CoinContext } from '../../Context/CoinContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -30,7 +31,9 @@ const currencyHandler = (event) => {
 
   return (
     <div className='navbar'>
-        <img src={assets.logo} alt="" />
+        <Link to={"/"}>
+            <img src={assets.logo} alt="" />
+        </Link>
         <ul className='menu-list'>
             <li>Home</li>
             <li>Features</li>
