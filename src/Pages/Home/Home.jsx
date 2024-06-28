@@ -5,6 +5,22 @@ import { CoinContext } from '../../Context/CoinContext';
 const Home = () => {
   const { allCoin, currency } = useContext(CoinContext);
   const [displayCoin, setDisplayCoin] = useState([]);
+  const [input, setInput] = useState('');
+
+  const inputHandler = (event) => {
+    setInput(event.target.value);
+    if(event.target.value === "") {
+      setDisplayCoin(allCoin);
+    }
+  }
+
+  const searchHandler = async (event) => {
+    event.preventDefault();
+    const coins = await allCoin.filter((item)=> {
+      return item.name.toLowerCase().includes(input.toLowerCase())
+    })
+    setDisplayCoin(coins)
+  }
 
   useEffect(() => {
     setDisplayCoin(allCoin);
@@ -16,8 +32,14 @@ const Home = () => {
         <h1>Effortless <br /> Crypto Price Monitoring</h1>
         <p>Welcome to CoinRadar, the best place to track cryptocurrency prices 
           with ease. <br /> Sign up to explore more about crypto. Start exploring now!</p>
-        <form>
-          <input type="text" placeholder='Search Crypto...' />
+        <form onSubmit={searchHandler}>
+          <input type="text" placeholder='Search Crypto...' list='coinlist' value={input} onChange={inputHandler} required />
+
+          <datalist id='coinlist'>
+            {allCoin.map((item, index) => (<option key={index} value={item.name} />))}
+          </datalist>
+
+
           <button type='submit'>Search</button>
         </form>
       </div>
