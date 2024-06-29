@@ -14,7 +14,7 @@ const App = () => {
         <Route path='/coin/:coinId' element={<Coin />} />
       </Routes>
       <Footer />
-    </div>
+      </div>
   )
 }
 
